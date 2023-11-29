@@ -1,5 +1,20 @@
 import React, { useState } from "react";
 import { Button, Heading, AspectRatio, Image} from '@chakra-ui/react';
+import {
+    List,
+    ListItem,
+    ListIcon,
+    OrderedList,
+    UnorderedList,
+  } from '@chakra-ui/react';
+  import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
+  import {
+    FormControl,
+    FormLabel,
+    FormErrorMessage,
+    FormHelperText,
+  } from '@chakra-ui/react'
+  import { Divider } from '@chakra-ui/react'
 
 export default function SignUp() {
     const [username, setUsername] = useState('');
@@ -42,6 +57,13 @@ export default function SignUp() {
                     <Button colorScheme = 'teal' type="submit">Sign Up</Button>
                 </form>
             </div>
+         
+         <UnorderedList>
+            <Card><ListItem>Chat Room 1</ListItem></Card>
+            <Card> <ListItem>Chat Room 2</ListItem></Card>
+            <Card><ListItem>Chat Room 3</ListItem></Card>
+            <Card> <ListItem>Chat Room 4</ListItem></Card>
+         </UnorderedList>
         </>
     );
 }
