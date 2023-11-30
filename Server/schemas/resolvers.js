@@ -1,41 +1,67 @@
-const { Thought } = require('../models');
+//const bcrypt = require('bcrypt'); Might need to implement somehow
+const { User, Messages, ChatRoom } = require('../models');
 
 const resolvers = {
   Query: {
-    thoughts: async () => {
-      return Thought.find().sort({ createdAt: -1 });
+    users: async () => {
+      return User.find();
     },
 
-    thought: async (parent, { thoughtId }) => {
-      return Thought.findOne({ _id: thoughtId });
+    user: async (parent, { userId }) => {
+      return User.findOne({ _id: userId });
+    },
+
+    chatRooms: async () => {
+      return ChatRoom.find();
+    },
+
+    messages: async () => {
+      return Messages.find();
     },
   },
 
   Mutation: {
-    addThought: async (parent, { thoughtText, thoughtAuthor }) => {
-      return Thought.create({ thoughtText, thoughtAuthor });
+    addUser: async (parent, {username, password}) => {
+      const user = await User.create({ username, password });
+      const token = signToken(user);
+
+      return { token, user };
     },
-    addComment: async (parent, { thoughtId, commentText }) => {
-      return Thought.findOneAndUpdate(
-        { _id: thoughtId },
-        {
-          $addToSet: { comments: { commentText } },
-        },
-        {
-          new: true,
-          runValidators: true,
-        }
-      );
+
+    login: async (parent, { username, password }) => {
+      const user = await User.findOne({ username });
+
+      if (!user) {
+        throw AuthenticationError;
+      }
+
+      const correctPw = await user.isCorrectPassword(password);
+
+      if (!correctPw) {
+        throw AuthenticationError;
+      }
+
+      const token = signToken(user);
+
+      return { token, user };
     },
-    removeThought: async (parent, { thoughtId }) => {
-      return Thought.findOneAndDelete({ _id: thoughtId });
+
+    addChatRoom: async (parent, { name }) => {
+      return ChatRoom.create({ name });
+
     },
-    removeComment: async (parent, { thoughtId, commentId }) => {
-      return Thought.findOneAndUpdate(
-        { _id: thoughtId },
-        { $pull: { comments: { _id: commentId } } },
-        { new: true }
-      );
+
+    addMessage: async (parent, {text, userId, chatRoomId}) => {
+      const message = new Messages({ text, user: userId, chatRoom: chatRoomId });
+      return await message.save();
+    }
+  },
+  Subscription: {
+    messageAdded: {
+      subscribe: async (_, { chatRoomId }, { pubsub }) => {
+        const asyncIterator = pubsub.asyncIterator(`MESSAGE_ADDED_${chatRoomId}`);
+        return await asyncIterator;
+      },
     },
   },
 };

@@ -1,0 +1,4 @@
+[
+    { "text": "Hello!", "userId": "user1_id", "chatRoomId": "general_id" },
+    { "text": "How are you?", "userId": "user2_id", "chatRoomId": "random_id" }
+]
