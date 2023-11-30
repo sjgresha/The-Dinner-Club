@@ -1,28 +1,43 @@
 const typeDefs = `
-  type Thought {
+  type User {
     _id: ID
-    thoughtText: String
-    thoughtAuthor: String
-    createdAt: String
-    comments: [Comment]!
+    username: String
+    password: String
   }
 
-  type Comment {
+  type ChatRoom {
     _id: ID
-    commentText: String
+    name: String
+  }
+
+  type Message {
+    _id: ID
+    text: String
+    user: User
+    chatRoom: ChatRoom
     createdAt: String
+  }
+
+  type AuthPayload {
+    token: String!
   }
 
   type Query {
-    thoughts: [Thought]!
-    thought(thoughtId: ID!): Thought
+    users: [User]
+    user(username: String!): User
+    chatRooms: [ChatRoom]
+    messages: [Message]
   }
 
   type Mutation {
-    addThought(thoughtText: String!, thoughtAuthor: String!): Thought
-    addComment(thoughtId: ID!, commentText: String!): Thought
-    removeThought(thoughtId: ID!): Thought
-    removeComment(thoughtId: ID!, commentId: ID!): Thought
+    addUser(username: String!, password: String!): User
+    addChatRoom(name: String!): ChatRoom
+    addMessage(text: String!, userId: ID!, chatRoomId: ID!): Message
+    login(username: String!, password: String!): AuthPayload
+  }
+
+  type Subscription {
+    messageAdded(chatRoomId: ID!): Message
   }
 `;
 

@@ -1,14 +1,13 @@
 const models = require('../models');
-const db = require('../config/connection');
+const db = require('../config/connections');
 
 module.exports = async (modelName, collectionName) => {
   try {
-    let modelExists = await models[modelName].db.db.listCollections({
-      name: collectionName
-    }).toArray()
-
-    if (modelExists.length) {
-      await db.dropCollection(collectionName);
+    if (models[modelName]) {
+      console.log(models);
+      await models[modelName].deleteMany();
+    } else {
+      console.error(`Model ${modelName} not found.`);
     }
   } catch (err) {
     throw err;

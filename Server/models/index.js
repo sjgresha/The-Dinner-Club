@@ -1,4 +1,5 @@
 const User = require('./User');
-const Chat = require('./Chat')
+const Messages = require('./Messages');
+const ChatRoom = require('./ChatRoom');
 
-module.exports = { User, Chat };
+module.exports = { User, Messages, ChatRoom};
