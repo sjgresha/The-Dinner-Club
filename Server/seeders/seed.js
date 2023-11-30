@@ -1,5 +1,5 @@
 const db = require('../config/connection');
-const { User, Chat } = require('../models');
+const { User, Chat } = require('../The-Dinner-Club-Chat/Server/models');
 const userSeeds = require('./userSeeds.json');
 const chatSeeds = require('./thoughtSeeds.json');
 const cleanDB = require('./cleanDB');
