@@ -1,4 +1,4 @@
-const models = require('../The-Dinner-Club-Chat/Server/models');
+const models = require('../models');
 const db = require('../config/connection');
 
 module.exports = async (modelName, collectionName) => {
