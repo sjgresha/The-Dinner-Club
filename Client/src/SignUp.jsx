@@ -58,12 +58,7 @@ export default function SignUp() {
                 </form>
             </div>
          
-         <UnorderedList>
-            <Card><ListItem>Chat Room 1</ListItem></Card>
-            <Card> <ListItem>Chat Room 2</ListItem></Card>
-            <Card><ListItem>Chat Room 3</ListItem></Card>
-            <Card> <ListItem>Chat Room 4</ListItem></Card>
-         </UnorderedList>
+        
         </>
     );
 }
