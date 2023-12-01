@@ -1,64 +1,55 @@
 import React, { useState } from "react";
-import { Button, Heading, AspectRatio, Image} from '@chakra-ui/react';
+import { Button, Heading, AspectRatio, Image, Input } from '@chakra-ui/react';
 import {
-    List,
-    ListItem,
-    ListIcon,
-    OrderedList,
-    UnorderedList,
-  } from '@chakra-ui/react';
-  import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
-  import {
-    FormControl,
-    FormLabel,
-    FormErrorMessage,
-    FormHelperText,
-  } from '@chakra-ui/react'
-  import { Divider } from '@chakra-ui/react'
+  FormControl,
+  FormLabel,
+  FormErrorMessage,
+  FormHelperText,
+} from '@chakra-ui/react';
 
 export default function SignUp() {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-       
-    };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Handle form submission logic here
+  };
 
-    return (
-        <>
-            <Heading>
-                Dinner Table Chats
-            </Heading>
-            <AspectRatio maxW='400px' ratio={4 / 3}>
-            <Image src='dinner tables img.jpg' alt='naruto' objectFit='cover' />
-            </AspectRatio>
-            <div>
-                <form onSubmit={handleSubmit}>
-            
-                        <input
-                            value={username}
-                            onChange={ev => setUsername(ev.target.value)}
-                            className="SignupInput"
-                            type="text"
-                            placeholder="Username"
-                        />
+  return (
+    <>
+      <Heading>
+        Dinner Table Chats
+      </Heading>
+      <AspectRatio maxW='400px' ratio={4 / 3}>
+        <Image src='dinner tables img.jpg'  objectFit='cover' />
+      </AspectRatio>
+      <div>
+        <form onSubmit={handleSubmit}>
+          <FormControl>
+            <FormLabel>Username</FormLabel>
+            <Input
+              value={username}
+              onChange={(ev) => setUsername(ev.target.value)}
+              placeholder="Username"
+            />
+          </FormControl>
 
-                
-                        <input
-                            value={password}
-                            onChange={ev => setPassword(ev.target.value)}
-                            className="SignupInput"
-                            type="password" // Change to password type for secure input
-                            placeholder="Password"
-                        />
-                    
+          <FormControl mt={4}>
+            <FormLabel>Password</FormLabel>
+            <Input
+              value={password}
+              onChange={(ev) => setPassword(ev.target.value)}
+              type="password"
+              placeholder="Password"
+            />
+          </FormControl>
 
-                    <Button colorScheme = 'teal' type="submit">Sign Up</Button>
-                </form>
-            </div>
-         
-        
-        </>
-    );
+          <Button mt={4} colorScheme='teal' type="submit">
+            Sign Up
+          </Button>
+        </form>
+      </div>
+    </>
+  );
 }
